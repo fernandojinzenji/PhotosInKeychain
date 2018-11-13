@@ -42,7 +42,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="199.66666666666666"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KwR-qA-AlH">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KwR-qA-AlH">
                                                     <rect key="frame" x="106.66666666666669" y="19" width="162" height="162"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="KwR-qA-AlH" secondAttribute="height" multiplier="1:1" id="w8i-nW-n9c"/>
@@ -73,7 +73,11 @@
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <navigationItem key="navigationItem" id="LSp-kg-PJm">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="1Ys-Gl-Yaf"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="1Ys-Gl-Yaf">
+                            <connections>
+                                <action selector="addPhotoButton:" destination="9pv-A4-QxB" id="Yqo-95-FEB"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
