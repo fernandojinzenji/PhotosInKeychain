@@ -10,10 +10,16 @@ import UIKit
 
 class FirstViewController: UIViewController  {
     
+    @IBOutlet weak var tableView: UITableView!
+    
     let imagePicker = UIImagePickerController()
+    
+    var images = [UIImage]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.title = "Add Photos To Keychain"
      
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
@@ -52,8 +58,9 @@ extension FirstViewController: UIImagePickerControllerDelegate, UINavigationCont
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
-
+            images.append(image)
             
+            tableView.reloadData()
         }
         
         dismiss(animated: true, completion: nil)
@@ -65,4 +72,25 @@ extension FirstViewController: UIImagePickerControllerDelegate, UINavigationCont
         
     }
     
+}
+
+extension FirstViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return images.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as? CustomTableViewCell else { return UITableViewCell() }
+        
+        // Add image ordered by most recent
+        cell.setImage(image: images[images.count - indexPath.row - 1])
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.frame.width - 16.0
+    }
 }

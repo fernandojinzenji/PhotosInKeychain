@@ -31,32 +31,40 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rbD-tQ-4GM">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rbD-tQ-4GM">
                                 <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="200" id="qHD-zR-Hj3">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCell" rowHeight="200" id="qHD-zR-Hj3" customClass="CustomTableViewCell" customModule="PhotosInKeychain" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qHD-zR-Hj3" id="BnY-gG-Sjg">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199.66666666666666"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KwR-qA-AlH">
-                                                    <rect key="frame" x="106.66666666666669" y="19" width="162" height="162"/>
+                                                    <rect key="frame" x="16" y="-71.666666666666671" width="343" height="343.33333333333331"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="KwR-qA-AlH" secondAttribute="height" multiplier="1:1" id="w8i-nW-n9c"/>
+                                                        <constraint firstAttribute="width" secondItem="KwR-qA-AlH" secondAttribute="height" multiplier="1:1" id="R47-PG-NRu"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="KwR-qA-AlH" firstAttribute="top" secondItem="BnY-gG-Sjg" secondAttribute="topMargin" constant="8" id="FPy-GJ-KwP"/>
+                                                <constraint firstAttribute="trailing" secondItem="KwR-qA-AlH" secondAttribute="trailing" constant="16" id="Ar6-vv-aRq"/>
                                                 <constraint firstItem="KwR-qA-AlH" firstAttribute="centerX" secondItem="BnY-gG-Sjg" secondAttribute="centerX" id="Z0v-Wc-h11"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="KwR-qA-AlH" secondAttribute="bottom" constant="8" id="gyM-TS-bX9"/>
+                                                <constraint firstItem="KwR-qA-AlH" firstAttribute="centerY" secondItem="BnY-gG-Sjg" secondAttribute="centerY" id="gnA-h2-KYz"/>
+                                                <constraint firstItem="KwR-qA-AlH" firstAttribute="leading" secondItem="BnY-gG-Sjg" secondAttribute="leading" constant="16" id="p55-zp-CH6"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="keychainImageView" destination="KwR-qA-AlH" id="Cfn-fq-bJk"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="9pv-A4-QxB" id="i4P-xN-t10"/>
+                                    <outlet property="delegate" destination="9pv-A4-QxB" id="hqF-6R-Nbe"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -79,12 +87,15 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="rbD-tQ-4GM" id="U09-vz-GBE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1692" y="-320.68965517241378"/>
         </scene>
-        <!--Manage Photos-->
+        <!--Second View Controller-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="PhotosInKeychain" customModuleProvider="target" sceneMemberID="viewController">
@@ -106,7 +117,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="B2p-Vq-c7V">
-                                <rect key="frame" x="12" y="52" width="351" height="31"/>
+                                <rect key="frame" x="12" y="96" width="351" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="M9b-cE-1qa"/>
                                 </constraints>
@@ -116,7 +127,7 @@
                                 </segments>
                             </segmentedControl>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qq2-zL-e3Y">
-                                <rect key="frame" x="0.0" y="90" width="375" height="639"/>
+                                <rect key="frame" x="0.0" y="134" width="375" height="595"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="J21-lI-njq">
                                     <size key="itemSize" width="50" height="50"/>
@@ -152,11 +163,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Manage Photos" image="second" id="cPa-gy-q4n"/>
+                    <navigationItem key="navigationItem" id="a1H-Fz-WML"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="749.60000000000002" y="359.85221674876851"/>
+            <point key="canvasLocation" x="1692" y="359.85221674876851"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -169,18 +180,18 @@
                     </tabBar>
                     <connections>
                         <segue destination="4Hs-3Q-OsH" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="RNo-9E-72B" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
-        <!--Save Photos-->
+        <!--Add Photos-->
         <scene sceneID="WHK-f2-J6Z">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4Hs-3Q-OsH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Save Photos" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Add Photos" image="first" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="kOE-Uo-N4J">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -194,6 +205,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tzq-bW-B55" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="749.60000000000002" y="-320.68965517241378"/>
+        </scene>
+        <!--Manage Photos-->
+        <scene sceneID="ymB-Mo-g3Y">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RNo-9E-72B" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Manage Photos" image="second" id="cPa-gy-q4n"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="idp-08-6mh">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="rootViewController" id="f4p-Om-tKM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zBM-zC-Sq1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="749.60000000000002" y="359.85221674876851"/>
         </scene>
     </scenes>
     <resources>
