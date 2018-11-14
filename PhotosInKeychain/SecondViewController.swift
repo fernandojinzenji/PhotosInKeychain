@@ -19,6 +19,9 @@ class SecondViewController: UIViewController, UICollectionViewDelegateFlowLayout
         
         navigationItem.title = "Manage Photos On Keychain"
         
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(imageLongPressed(_:)))
+        longPress.minimumPressDuration = 0.5
+        collectionView.addGestureRecognizer(longPress)
     }
     
     @IBAction func viewTypeChanged(_ sender: UISegmentedControl) {
@@ -30,8 +33,20 @@ class SecondViewController: UIViewController, UICollectionViewDelegateFlowLayout
             mode = .List
         }
         
-        self.collectionView.reloadData()        
+        self.collectionView.reloadData()
     }
+    
+    @objc private func imageLongPressed(_ sender: UILongPressGestureRecognizer) {
+        
+        if sender.state == .began {
+            let point = sender.location(in: collectionView)
+            
+            let indexPath = collectionView.indexPathForItem(at: point)
+            
+            print(indexPath?.row)
+        }
+    }
+    
 }
 
 extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -44,7 +59,14 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "customCell", for: indexPath)
+        var cell = UICollectionViewCell()
+        
+        switch mode {
+        case .Grid:
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gridCell", for: indexPath) as! GridCollectionViewCell
+        case .List:
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as! ListCollectionViewCell
+        }
         
         return cell
         
@@ -63,7 +85,7 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 }
 
-enum CollectionViewMode {
+public enum CollectionViewMode {
     case Grid
     case List
 }

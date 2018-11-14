@@ -1,5 +1,5 @@
 //
-//  CustomCollectionViewCell.swift
+//  GridCollectionViewCell.swift
 //  PhotosInKeychain
 //
 //  Created by Fernando Jinzenji on 2018-11-13.
@@ -8,10 +8,9 @@
 
 import UIKit
 
-class CustomCollectionViewCell: UICollectionViewCell {
-    
-    @IBOutlet weak var keychainImageView: UIImageView!
-    
+class GridCollectionViewCell: UICollectionViewCell {
+
+    @IBOutlet weak var gridImageView: UIImageView!
     
     
 }
