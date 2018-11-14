@@ -83,6 +83,18 @@ class KeychainHelper {
         return lastResultCode == noErr
     }
     
+    @discardableResult
+    func saveImageUuids(uuids: [String]) -> Bool {
+        
+        do {
+            let archive = try NSKeyedArchiver.archivedData(withRootObject: uuids, requiringSecureCoding: false)
+            return KeychainHelper().set(archive, forKey: uuidListKey)
+        }
+        catch {
+            return false
+        }
+    }
+    
     func getImageUuids() -> [String] {
         
         guard let rawData = getData(uuidListKey) else { return [] }

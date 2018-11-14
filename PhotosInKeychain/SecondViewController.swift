@@ -35,7 +35,14 @@ class SecondViewController: UIViewController, UICollectionViewDelegateFlowLayout
     
     override func viewWillAppear(_ animated: Bool) {
         
+        super.viewWillAppear(animated)
         imageIdentifiers = KeychainHelper().getImageUuids()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        
     }
     
     @IBAction func viewTypeChanged(_ sender: UISegmentedControl) {
@@ -55,9 +62,15 @@ class SecondViewController: UIViewController, UICollectionViewDelegateFlowLayout
         if sender.state == .began {
             let point = sender.location(in: collectionView)
             
-            let indexPath = collectionView.indexPathForItem(at: point)
+            guard let indexPath = collectionView.indexPathForItem(at: point) else { return }
             
-            print(indexPath?.row)
+            // remove image
+            let uuid = imageIdentifiers[indexPath.item]
+            keychainHelper.delete(uuid)
+            
+            // update image uuid list
+            imageIdentifiers.remove(at: indexPath.item)
+            keychainHelper.saveImageUuids(uuids: imageIdentifiers)
         }
     }
     

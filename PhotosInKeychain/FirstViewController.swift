@@ -35,7 +35,14 @@ class FirstViewController: UIViewController  {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        super.viewWillAppear(animated)
         imageIdentifiers = KeychainHelper().getImageUuids()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        
     }
 
 
@@ -69,29 +76,17 @@ extension FirstViewController: UIImagePickerControllerDelegate, UINavigationCont
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage, let imageData = image.jpegData(compressionQuality: 0.2) {
             
-            // save to keychain
-            do {
-                // generate identifier for image
-                let uuid = UUID().uuidString
+            // generate identifier for image
+            let uuid = UUID().uuidString
 
-                let keychain = KeychainHelper()
-                
-                // save image in keychain
-                keychain.set(image.jpegData(compressionQuality: 1.0)!, forKey: uuid)
-                
-                // save array in keychain
-                imageIdentifiers.append(uuid)
-                let archive = try NSKeyedArchiver.archivedData(withRootObject: imageIdentifiers, requiringSecureCoding: false)
-                KeychainHelper().set(archive, forKey: "Photos")
-            }
-            catch {
-                print("error saving photos in keychain")
-            }
+            // save image in keychain
+            keychainHelper.set(imageData, forKey: uuid)
             
-            
-            tableView.reloadData()
+            // save images uuid list in keychain
+            imageIdentifiers.append(uuid)
+            keychainHelper.saveImageUuids(uuids: imageIdentifiers)
         }
         
         dismiss(animated: true, completion: nil)
