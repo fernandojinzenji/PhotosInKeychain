@@ -65,18 +65,66 @@
 			isa = PBXGroup;
 			children = (
 				9C735B98219B585A00B6F7FF /* AppDelegate.swift */,
+				9C735BA1219B585F00B6F7FF /* Assets.xcassets */,
+				9C735BA6219B585F00B6F7FF /* Info.plist */,
+				9C735BB6219CC44B00B6F7FF /* Models */,
+				9C735BBA219CC48D00B6F7FF /* Views */,
+				9C735BB7219CC45300B6F7FF /* ViewModels */,
+				9C735BB5219CC42800B6F7FF /* Controllers */,
+				9C735BB8219CC46500B6F7FF /* Storyboards */,
+				9C735BB9219CC47E00B6F7FF /* Helpers */,
+			);
+			path = PhotosInKeychain;
+			sourceTree = "<group>";
+		};
+		9C735BB5219CC42800B6F7FF /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				9C735B9A219B585A00B6F7FF /* FirstViewController.swift */,
 				9C735B9C219B585A00B6F7FF /* SecondViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		9C735BB6219CC44B00B6F7FF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9C735BB7219CC45300B6F7FF /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		9C735BB8219CC46500B6F7FF /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				9C735B9E219B585A00B6F7FF /* Main.storyboard */,
+				9C735BA3219B585F00B6F7FF /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		9C735BB9219CC47E00B6F7FF /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
 				9C735BB2219BFF5A00B6F7FF /* KeychainHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		9C735BBA219CC48D00B6F7FF /* Views */ = {
+			isa = PBXGroup;
+			children = (
 				9C735BAC219BC16B00B6F7FF /* CustomTableViewCell.swift */,
 				9C735BAE219BD6CB00B6F7FF /* GridCollectionViewCell.swift */,
 				9C735BB0219BE46400B6F7FF /* ListCollectionViewCell.swift */,
-				9C735B9E219B585A00B6F7FF /* Main.storyboard */,
-				9C735BA1219B585F00B6F7FF /* Assets.xcassets */,
-				9C735BA3219B585F00B6F7FF /* LaunchScreen.storyboard */,
-				9C735BA6219B585F00B6F7FF /* Info.plist */,
 			);
-			path = PhotosInKeychain;
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -49,7 +49,7 @@ func getMetaData(forImage image: UIImage) {
                 
                 for tag in tags {
                     
-                    let tagType = CGImageMetadataTagGetTypeID()
+                    _ = CGImageMetadataTagGetTypeID()
                     if let name = CGImageMetadataTagCopyName(tag) {
                         print("name: \(name)")
                     }
