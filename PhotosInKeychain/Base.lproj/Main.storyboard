@@ -139,16 +139,18 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="gridCell" id="8C8-qU-c13" customClass="GridCollectionViewCell" customModule="PhotosInKeychain" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="gridCell" id="8C8-qU-c13" customClass="GridCollectionViewCell" customModule="PhotosInKeychain" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6bf-VU-CjS">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6bf-VU-CjS">
                                                     <rect key="frame" x="4" y="4" width="42" height="42"/>
-                                                    <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="6bf-VU-CjS" secondAttribute="height" multiplier="1:1" id="Hz8-fO-gE7"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
                                         </view>
@@ -162,22 +164,22 @@
                                             <outlet property="gridImageView" destination="6bf-VU-CjS" id="wqn-XO-4N5"/>
                                         </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="listCell" id="9EQ-dx-uTJ" customClass="ListCollectionViewCell" customModule="PhotosInKeychain" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="listCell" id="9EQ-dx-uTJ" customClass="ListCollectionViewCell" customModule="PhotosInKeychain" customModuleProvider="target">
                                         <rect key="frame" x="50" y="0.0" width="250" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ieB-qe-OTS">
-                                                    <rect key="frame" x="4" y="4" width="42" height="42"/>
-                                                    <color key="backgroundColor" red="0.2010377347" green="0.5860543251" blue="0.94121867420000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ieB-qe-OTS">
+                                                    <rect key="frame" x="12" y="-12.666666666666664" width="75" height="75.333333333333329"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="ieB-qe-OTS" secondAttribute="height" multiplier="1:1" id="aM0-yV-niu"/>
+                                                        <constraint firstAttribute="height" constant="75" id="eFc-4A-uPc"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sY0-d2-MXc">
-                                                    <rect key="frame" x="58" y="14.666666666666664" width="42" height="21"/>
+                                                    <rect key="frame" x="99" y="14.666666666666664" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -186,9 +188,8 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="sY0-d2-MXc" firstAttribute="centerY" secondItem="9EQ-dx-uTJ" secondAttribute="centerY" id="AtT-8k-QEG"/>
-                                            <constraint firstAttribute="bottom" secondItem="ieB-qe-OTS" secondAttribute="bottom" constant="4" id="RWc-Rn-eLs"/>
-                                            <constraint firstItem="ieB-qe-OTS" firstAttribute="top" secondItem="9EQ-dx-uTJ" secondAttribute="top" constant="4" id="aib-Ja-db9"/>
-                                            <constraint firstItem="ieB-qe-OTS" firstAttribute="leading" secondItem="9EQ-dx-uTJ" secondAttribute="leading" constant="4" id="jr4-xC-8OR"/>
+                                            <constraint firstItem="ieB-qe-OTS" firstAttribute="centerY" secondItem="9EQ-dx-uTJ" secondAttribute="centerY" id="La2-hh-wcy"/>
+                                            <constraint firstItem="ieB-qe-OTS" firstAttribute="leading" secondItem="9EQ-dx-uTJ" secondAttribute="leading" constant="12" id="jr4-xC-8OR"/>
                                             <constraint firstItem="sY0-d2-MXc" firstAttribute="leading" secondItem="ieB-qe-OTS" secondAttribute="trailing" constant="12" id="lFS-UP-n2G"/>
                                         </constraints>
                                         <size key="customSize" width="250" height="50"/>
@@ -221,7 +222,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="a1H-Fz-WML"/>
+                    <navigationItem key="navigationItem" id="a1H-Fz-WML">
+                        <barButtonItem key="rightBarButtonItem" title="Clear" id="ECb-5X-9Dn">
+                            <connections>
+                                <action selector="clearButtonTapped:" destination="8rJ-Kc-sve" id="5ng-JY-I5B"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="qq2-zL-e3Y" id="vvV-tp-etH"/>
                     </connections>

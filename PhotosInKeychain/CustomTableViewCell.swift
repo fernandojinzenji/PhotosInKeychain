@@ -12,7 +12,7 @@ class CustomTableViewCell: UITableViewCell {
 
     @IBOutlet weak var keychainImageView: UIImageView!
     
-    public func setImage(image: UIImage) {
+    public func setImage(image: UIImage?) {
         keychainImageView.image = image
     }
 }

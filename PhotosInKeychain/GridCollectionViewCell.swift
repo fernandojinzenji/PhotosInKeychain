@@ -12,5 +12,7 @@ class GridCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var gridImageView: UIImageView!
     
-    
+    public func setImage(image: UIImage?) {
+        gridImageView.image = image
+    }
 }

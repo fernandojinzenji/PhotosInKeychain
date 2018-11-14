@@ -8,24 +8,17 @@
 
 import Foundation
 import Security
+import UIKit
 
 class KeychainHelper {
     
     /// Contains result code from the last operation. Value is noErr (0) for a successful result.
     var lastResultCode: OSStatus = noErr
     
+    let uuidListKey = "Photos"
+    
     init() {
         
-    }
-    
-    @discardableResult
-    func set(_ value: String, forKey key: String) -> Bool {
-        
-        if let value = value.data(using: String.Encoding.utf8) {
-            return set(value, forKey: key)
-        }
-        
-        return false
     }
     
     @discardableResult
@@ -45,20 +38,6 @@ class KeychainHelper {
         lastResultCode = SecItemAdd(query as CFDictionary, nil)
         
         return lastResultCode == noErr
-    }
-    
-    @discardableResult
-    func get(_ key: String) -> String? {
-        if let data = getData(key) {
-            
-            if let currentString = String(data: data, encoding: .utf8) {
-                return currentString
-            }
-            
-            lastResultCode = -67853 // errSecInvalidEncoding
-        }
-        
-        return nil
     }
     
     @discardableResult
@@ -93,5 +72,38 @@ class KeychainHelper {
         lastResultCode = SecItemDelete(query as CFDictionary)
         
         return lastResultCode == noErr
+    }
+    
+    @discardableResult
+    func clear() -> Bool {
+        let query: [String: Any] = [ kSecClass as String : kSecClassGenericPassword ]
+        
+        lastResultCode = SecItemDelete(query as CFDictionary)
+        
+        return lastResultCode == noErr
+    }
+    
+    func getImageUuids() -> [String] {
+        
+        guard let rawData = getData(uuidListKey) else { return [] }
+        
+        do {
+            if let uuids = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(rawData) as? [String] {
+                
+                return uuids
+            } else {
+                return []
+            }
+            
+        }
+        catch {
+            return []
+        }
+    }
+    
+    func getImage(uuid: String) -> UIImage? {
+        
+        guard let data = getData(uuid) else { return nil }        
+        return UIImage(data: data)
     }
 }

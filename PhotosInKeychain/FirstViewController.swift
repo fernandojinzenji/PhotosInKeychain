@@ -12,9 +12,16 @@ class FirstViewController: UIViewController  {
     
     @IBOutlet weak var tableView: UITableView!
     
-    let imagePicker = UIImagePickerController()
+    private let imagePicker = UIImagePickerController()
+    private let keychainHelper = KeychainHelper()
     
-    var imageIdentifiers = [String]()
+    // Array containing uuids used to store images in keychain
+    private var imageIdentifiers = [String]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,18 +31,11 @@ class FirstViewController: UIViewController  {
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
         
-        if let hasImageUuidList = KeychainHelper().getData("Photos") {
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         
-            do {
-                if let ids = try  NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(hasImageUuidList) as? [String] {
-                    
-                    imageIdentifiers = ids
-                }
-            }
-            catch {
-                print("got it")
-            }
-        }
+        imageIdentifiers = KeychainHelper().getImageUuids()
     }
 
 
@@ -113,11 +113,11 @@ extension FirstViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as? CustomTableViewCell else { return UITableViewCell() }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomTableViewCell
         
         // Add image ordered by most recent
-        let image = UIImage(data: KeychainHelper().getData(imageIdentifiers[imageIdentifiers.count - indexPath.row - 1])!)
-        cell.setImage(image: image!)
+        let uuid = imageIdentifiers[imageIdentifiers.count - indexPath.row - 1]
+        cell.setImage(image: keychainHelper.getImage(uuid: uuid))
         
         return cell
     }

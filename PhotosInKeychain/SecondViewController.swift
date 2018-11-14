@@ -13,6 +13,15 @@ class SecondViewController: UIViewController, UICollectionViewDelegateFlowLayout
     @IBOutlet weak var collectionView: UICollectionView!
     
     private var mode = CollectionViewMode.Grid
+    private let keychainHelper = KeychainHelper()
+    
+    
+    // Array containing uuids used to store images in keychain
+    private var imageIdentifiers = [String]() {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +31,11 @@ class SecondViewController: UIViewController, UICollectionViewDelegateFlowLayout
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(imageLongPressed(_:)))
         longPress.minimumPressDuration = 0.5
         collectionView.addGestureRecognizer(longPress)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        imageIdentifiers = KeychainHelper().getImageUuids()
     }
     
     @IBAction func viewTypeChanged(_ sender: UISegmentedControl) {
@@ -47,29 +61,33 @@ class SecondViewController: UIViewController, UICollectionViewDelegateFlowLayout
         }
     }
     
+    @IBAction func clearButtonTapped(_ sender: UIBarButtonItem) {
+        keychainHelper.clear()
+        imageIdentifiers = []
+    }
+    
 }
 
 extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 10
+        return imageIdentifiers.count
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        var cell = UICollectionViewCell()
-        
         switch mode {
         case .Grid:
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gridCell", for: indexPath) as! GridCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gridCell", for: indexPath) as! GridCollectionViewCell
+            cell.setImage(image: keychainHelper.getImage(uuid: imageIdentifiers[indexPath.row]))
+            return cell
         case .List:
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as! ListCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as! ListCollectionViewCell
+            cell.setImage(image: keychainHelper.getImage(uuid: imageIdentifiers[indexPath.row]))
+            return cell
         }
-        
-        return cell
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -80,7 +98,7 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return CGSize(width: cellSize, height: cellSize)
         case .List:
             let cellSize = collectionView.frame.width
-            return CGSize(width: cellSize, height: 100.0)
+            return CGSize(width: cellSize, height: 80.0)
         }
     }
 }

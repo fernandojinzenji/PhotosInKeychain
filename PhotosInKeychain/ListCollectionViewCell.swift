@@ -12,4 +12,8 @@ class ListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var listImageView: UIImageView!
     @IBOutlet weak var imageMetadata: UILabel!
+    
+    public func setImage(image: UIImage?) {
+        listImageView.image = image
+    }
 }
