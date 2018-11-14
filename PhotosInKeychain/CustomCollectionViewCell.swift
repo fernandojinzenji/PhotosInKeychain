@@ -1,5 +1,5 @@
 //
-//  CustomTableViewCell.swift
+//  CustomCollectionViewCell.swift
 //  PhotosInKeychain
 //
 //  Created by Fernando Jinzenji on 2018-11-13.
@@ -8,11 +8,10 @@
 
 import UIKit
 
-class CustomTableViewCell: UITableViewCell {
-
+class CustomCollectionViewCell: UICollectionViewCell {
+    
     @IBOutlet weak var keychainImageView: UIImageView!
     
-    public func setImage(image: UIImage) {
-        keychainImageView.image = image
-    }
+    
+    
 }

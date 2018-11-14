@@ -91,6 +91,6 @@ extension FirstViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.frame.width - 16.0
+        return tableView.frame.width
     }
 }
