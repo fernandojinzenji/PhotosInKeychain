@@ -14,7 +14,7 @@ class FirstViewController: UIViewController  {
     
     let imagePicker = UIImagePickerController()
     
-    var images = [UIImage]()
+    var imageIdentifiers = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +23,19 @@ class FirstViewController: UIViewController  {
      
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
+        
+        if let hasImageUuidList = KeychainHelper().getData("Photos") {
+        
+            do {
+                if let ids = try  NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(hasImageUuidList) as? [String] {
+                    
+                    imageIdentifiers = ids
+                }
+            }
+            catch {
+                print("got it")
+            }
+        }
     }
 
 
@@ -58,7 +71,25 @@ extension FirstViewController: UIImagePickerControllerDelegate, UINavigationCont
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
-            images.append(image)
+            // save to keychain
+            do {
+                // generate identifier for image
+                let uuid = UUID().uuidString
+
+                let keychain = KeychainHelper()
+                
+                // save image in keychain
+                keychain.set(image.jpegData(compressionQuality: 1.0)!, forKey: uuid)
+                
+                // save array in keychain
+                imageIdentifiers.append(uuid)
+                let archive = try NSKeyedArchiver.archivedData(withRootObject: imageIdentifiers, requiringSecureCoding: false)
+                KeychainHelper().set(archive, forKey: "Photos")
+            }
+            catch {
+                print("error saving photos in keychain")
+            }
+            
             
             tableView.reloadData()
         }
@@ -77,7 +108,7 @@ extension FirstViewController: UIImagePickerControllerDelegate, UINavigationCont
 extension FirstViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return images.count
+        return imageIdentifiers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -85,7 +116,8 @@ extension FirstViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as? CustomTableViewCell else { return UITableViewCell() }
         
         // Add image ordered by most recent
-        cell.setImage(image: images[images.count - indexPath.row - 1])
+        let image = UIImage(data: KeychainHelper().getData(imageIdentifiers[imageIdentifiers.count - indexPath.row - 1])!)
+        cell.setImage(image: image!)
         
         return cell
     }

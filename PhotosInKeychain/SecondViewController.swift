@@ -17,7 +17,7 @@ class SecondViewController: UIViewController, UICollectionViewDelegateFlowLayout
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Manage Photos On Keychain"
+        navigationItem.title = "Manage Photos In Keychain"
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(imageLongPressed(_:)))
         longPress.minimumPressDuration = 0.5

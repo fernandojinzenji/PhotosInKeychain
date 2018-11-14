@@ -16,6 +16,7 @@
 		9C735BAD219BC16B00B6F7FF /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C735BAC219BC16B00B6F7FF /* CustomTableViewCell.swift */; };
 		9C735BAF219BD6CB00B6F7FF /* GridCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C735BAE219BD6CB00B6F7FF /* GridCollectionViewCell.swift */; };
 		9C735BB1219BE46400B6F7FF /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C735BB0219BE46400B6F7FF /* ListCollectionViewCell.swift */; };
+		9C735BB3219BFF5A00B6F7FF /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C735BB2219BFF5A00B6F7FF /* KeychainHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		9C735BAC219BC16B00B6F7FF /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		9C735BAE219BD6CB00B6F7FF /* GridCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C735BB0219BE46400B6F7FF /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
+		9C735BB2219BFF5A00B6F7FF /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				9C735B98219B585A00B6F7FF /* AppDelegate.swift */,
 				9C735B9A219B585A00B6F7FF /* FirstViewController.swift */,
 				9C735B9C219B585A00B6F7FF /* SecondViewController.swift */,
+				9C735BB2219BFF5A00B6F7FF /* KeychainHelper.swift */,
 				9C735BAC219BC16B00B6F7FF /* CustomTableViewCell.swift */,
 				9C735BAE219BD6CB00B6F7FF /* GridCollectionViewCell.swift */,
 				9C735BB0219BE46400B6F7FF /* ListCollectionViewCell.swift */,
@@ -151,6 +154,7 @@
 				9C735B9D219B585A00B6F7FF /* SecondViewController.swift in Sources */,
 				9C735BAF219BD6CB00B6F7FF /* GridCollectionViewCell.swift in Sources */,
 				9C735B99219B585A00B6F7FF /* AppDelegate.swift in Sources */,
+				9C735BB3219BFF5A00B6F7FF /* KeychainHelper.swift in Sources */,
 				9C735BAD219BC16B00B6F7FF /* CustomTableViewCell.swift in Sources */,
 				9C735B9B219B585A00B6F7FF /* FirstViewController.swift in Sources */,
 			);
