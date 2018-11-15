@@ -13,15 +13,10 @@ class SecondViewController: UIViewController, UICollectionViewDelegateFlowLayout
     @IBOutlet weak var collectionView: UICollectionView!
     
     private var mode = CollectionViewMode.Grid
-    private let keychainHelper = KeychainHelper()
     
-    
-    // Array containing uuids used to store images in keychain
-    private var imageIdentifiers = [String]() {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
+    lazy var viewModel: SecondViewModel = {
+        return SecondViewModel()
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,18 +26,24 @@ class SecondViewController: UIViewController, UICollectionViewDelegateFlowLayout
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(imageLongPressed(_:)))
         longPress.minimumPressDuration = 0.5
         collectionView.addGestureRecognizer(longPress)
+        
+        initViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
-        imageIdentifiers = KeychainHelper().getImageUuids()
+        viewModel.loadList()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    func initViewModel() {
         
-        super.viewWillDisappear(animated)
+        viewModel.reloadCollectionViewClosure = { [weak self] () in
         
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
     }
     
     @IBAction func viewTypeChanged(_ sender: UISegmentedControl) {
@@ -64,19 +65,12 @@ class SecondViewController: UIViewController, UICollectionViewDelegateFlowLayout
             
             guard let indexPath = collectionView.indexPathForItem(at: point) else { return }
             
-            // remove image
-            let uuid = imageIdentifiers[indexPath.item]
-            keychainHelper.delete(uuid)
-            
-            // update image uuid list
-            imageIdentifiers.remove(at: indexPath.item)
-            keychainHelper.saveImageUuids(uuids: imageIdentifiers)
+            viewModel.delete(index: indexPath.item)
         }
     }
     
     @IBAction func clearButtonTapped(_ sender: UIBarButtonItem) {
-        keychainHelper.clear()
-        imageIdentifiers = []
+        viewModel.clearAll()
     }
     
 }
@@ -85,20 +79,24 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return imageIdentifiers.count
+        return viewModel.numberOfCells
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        let cellViewModel = viewModel.getCellViewModel(index: indexPath.item)
+        
         switch mode {
         case .Grid:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gridCell", for: indexPath) as! GridCollectionViewCell
-            cell.setImage(image: keychainHelper.getImage(uuid: imageIdentifiers[indexPath.row]))
+            
+            cell.setImage(image: cellViewModel.image)
             return cell
         case .List:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as! ListCollectionViewCell
-            cell.setImage(image: keychainHelper.getImage(uuid: imageIdentifiers[indexPath.row]))
+            
+            cell.setImage(image: cellViewModel.image)
             return cell
         }
     }
