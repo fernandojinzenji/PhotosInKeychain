@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C2D766D219D3F1A005A26CA /* FirstViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2D766C219D3F1A005A26CA /* FirstViewModel.swift */; };
+		9C2D766F219D3F22005A26CA /* SecondViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2D766E219D3F22005A26CA /* SecondViewModel.swift */; };
 		9C735B99219B585A00B6F7FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C735B98219B585A00B6F7FF /* AppDelegate.swift */; };
 		9C735B9B219B585A00B6F7FF /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C735B9A219B585A00B6F7FF /* FirstViewController.swift */; };
 		9C735B9D219B585A00B6F7FF /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C735B9C219B585A00B6F7FF /* SecondViewController.swift */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9C2D766C219D3F1A005A26CA /* FirstViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewModel.swift; sourceTree = "<group>"; };
+		9C2D766E219D3F22005A26CA /* SecondViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewModel.swift; sourceTree = "<group>"; };
 		9C735B95219B585A00B6F7FF /* PhotosInKeychain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotosInKeychain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C735B98219B585A00B6F7FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C735B9A219B585A00B6F7FF /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 		9C735BB7219CC45300B6F7FF /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				9C2D766C219D3F1A005A26CA /* FirstViewModel.swift */,
+				9C2D766E219D3F22005A26CA /* SecondViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -199,8 +205,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C735BB1219BE46400B6F7FF /* ListCollectionViewCell.swift in Sources */,
+				9C2D766F219D3F22005A26CA /* SecondViewModel.swift in Sources */,
 				9C735B9D219B585A00B6F7FF /* SecondViewController.swift in Sources */,
 				9C735BAF219BD6CB00B6F7FF /* GridCollectionViewCell.swift in Sources */,
+				9C2D766D219D3F1A005A26CA /* FirstViewModel.swift in Sources */,
 				9C735B99219B585A00B6F7FF /* AppDelegate.swift in Sources */,
 				9C735BB3219BFF5A00B6F7FF /* KeychainHelper.swift in Sources */,
 				9C735BAD219BC16B00B6F7FF /* CustomTableViewCell.swift in Sources */,

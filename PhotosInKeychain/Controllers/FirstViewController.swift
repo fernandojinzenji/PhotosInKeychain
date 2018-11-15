@@ -13,14 +13,10 @@ class FirstViewController: UIViewController  {
     @IBOutlet weak var tableView: UITableView!
     
     private let imagePicker = UIImagePickerController()
-    private let keychainHelper = KeychainHelper()
     
-    // Array containing uuids used to store images in keychain
-    private var imageIdentifiers = [String]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    lazy var viewModel: FirstViewModel = {
+        return FirstViewModel()
+    }()
     
 
     override func viewDidLoad() {
@@ -31,20 +27,24 @@ class FirstViewController: UIViewController  {
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
         
+        initViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
-        imageIdentifiers = KeychainHelper().getImageUuids()
+        viewModel.loadList()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    func initViewModel() {
         
-        super.viewWillDisappear(animated)
-        
+        viewModel.reloadTableViewClosure = { [weak self] () in
+            
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
     }
-
 
     @IBAction func addPhotoButton(_ sender: UIBarButtonItem) {
         
@@ -76,17 +76,9 @@ extension FirstViewController: UIImagePickerControllerDelegate, UINavigationCont
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage, let imageData = image.jpegData(compressionQuality: 0.2) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
-            // generate identifier for image
-            let uuid = UUID().uuidString
-
-            // save image in keychain
-            keychainHelper.set(imageData, forKey: uuid)
-            
-            // save images uuid list in keychain
-            imageIdentifiers.append(uuid)
-            keychainHelper.saveImageUuids(uuids: imageIdentifiers)
+            viewModel.savePhoto(image: image)
         }
         
         dismiss(animated: true, completion: nil)
@@ -103,7 +95,7 @@ extension FirstViewController: UIImagePickerControllerDelegate, UINavigationCont
 extension FirstViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return imageIdentifiers.count
+        return viewModel.numberOfCells
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -111,8 +103,10 @@ extension FirstViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomTableViewCell
         
         // Add image ordered by most recent
-        let uuid = imageIdentifiers[imageIdentifiers.count - indexPath.row - 1]
-        cell.setImage(image: keychainHelper.getImage(uuid: uuid))
+        let reversedIndex = viewModel.numberOfCells - indexPath.row - 1
+        let cellViewModel = viewModel.getCellViewModel(index: reversedIndex)
+        
+        cell.setImage(image: cellViewModel.image)
         
         return cell
     }
